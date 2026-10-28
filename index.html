@@ -1,0 +1,1192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pruthviraj Gojare | AI & Machine Learning Engineer | Los Santos AI</title>
+  <meta name="description" content="Portfolio of Pruthviraj Gojare - AI / Machine Learning Engineer specializing in Foundation Models, Deep Learning, Computer Vision, and Autonomous Agentic Systems. GTA V Los Santos edition.">
+  <meta name="keywords" content="Pruthviraj Gojare, AI Engineer, Machine Learning Engineer, Deep Learning, PyTorch, LLMs, Computer Vision, Portfolio, GTA V">
+  <meta name="author" content="Pruthviraj Gojare">
+  <meta property="og:title" content="Pruthviraj Gojare | AI & Machine Learning Engineer">
+  <meta property="og:description" content="Grand Theft Auto V themed portfolio of Pruthviraj Gojare - AI & Machine Learning Engineer.">
+  <meta property="og:type" content="website">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.cdnfonts.com/css/pricedown" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,700;1,900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="loading-active">
+
+  <!-- GTA V AUDIO CONTROLLER NOTICE / MUTE -->
+  <div id="audio-toast" class="audio-toast">
+    <span class="toast-icon">🔊</span>
+    <span class="toast-text">Click anywhere to enable Los Santos audio effects!</span>
+    <button id="toast-close-btn" class="toast-close">✕</button>
+  </div>
+
+  <!-- GTA V LOADING SCREEN INTRO -->
+  <div id="loading-screen" class="loading-screen">
+    <div class="loading-bg"></div>
+    <div class="loading-overlay"></div>
+    
+    <div class="loading-header">
+      <div class="ls-badge">
+        <span class="badge-star">★</span>
+        <span class="badge-text">SAN ANDREAS // AI SPECIAL DIVISION</span>
+        <span class="badge-star">★</span>
+      </div>
+      <div class="ls-date" id="loading-date">LOS SANTOS, CA // OCT 2026</div>
+    </div>
+
+    <div class="loading-hero-center">
+      <div class="loading-logo-wrap">
+        <span class="loading-sub-pre">PORTFOLIO OF</span>
+        <h1 class="loading-main-title">PRUTHVIRAJ</h1>
+        <div class="loading-sub-bar">
+          <span class="loading-title-v">V</span>
+          <span class="loading-role-text">GOJARE // AI ENGINEER</span>
+        </div>
+      </div>
+      <p class="loading-blurb">Targeting: Senior AI / Machine Learning Engineer & Autonomous Systems Architect</p>
+    </div>
+
+    <div class="loading-bottom-bar">
+      <div class="loading-tip-container">
+        <div class="tip-label">HACKER HINT:</div>
+        <div class="tip-text" id="loading-tip">Tip: Click the Wanted Stars in the top-right HUD to trigger police radio alerts and scramble Los Santos swat units.</div>
+      </div>
+
+      <div class="loading-controls">
+        <button id="skip-intro-btn" class="gta-btn gta-btn-gold">
+          <span>ENTER LOS SANTOS</span>
+          <span class="btn-arrow">▶</span>
+        </button>
+        <div class="gta-spinner-wrap">
+          <div class="gta-spinner"></div>
+          <span class="spinner-text">INITIALIZING WEIGHTS</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GTA V HEADS UP DISPLAY (PERSISTENT HUD) -->
+  <header id="gta-hud" class="gta-hud">
+    <div class="hud-left">
+      <div class="hud-radar-btn" id="radar-toggle" title="View Los Santos GPS Map">
+        <span class="radar-dot"></span>
+        <span class="radar-ping"></span>
+        <span class="radar-coords">VINEWOOD // 34.0928° N, 118.3287° W</span>
+      </div>
+      <div class="hud-time" id="hud-clock">04:42 PM</div>
+    </div>
+
+    <nav class="hud-center-nav" id="hud-nav">
+      <a href="#hero" class="nav-link active" data-section="hero">
+        <span class="nav-num">01</span><span class="nav-label">ORIGIN</span>
+      </a>
+      <a href="#specializations" class="nav-link" data-section="specializations">
+        <span class="nav-num">02</span><span class="nav-label">CHARACTER</span>
+      </a>
+      <a href="#missions" class="nav-link" data-section="missions">
+        <span class="nav-num">03</span><span class="nav-label">MISSIONS</span>
+      </a>
+      <a href="#arsenal" class="nav-link" data-section="arsenal">
+        <span class="nav-num">04</span><span class="nav-label">AMMUNATION</span>
+      </a>
+      <a href="#heist-board" class="nav-link" data-section="heist-board">
+        <span class="nav-num">05</span><span class="nav-label">SAFEHOUSE</span>
+      </a>
+      <a href="#contact" class="nav-link" data-section="contact">
+        <span class="nav-num">06</span><span class="nav-label">iFRUIT</span>
+      </a>
+    </nav>
+
+    <div class="hud-right">
+      <!-- Wanted Level (Interactive 5 Stars) -->
+      <div class="wanted-wrapper" id="wanted-wrapper" title="Click stars to alter Wanted Level!">
+        <span class="wanted-label">WANTED</span>
+        <div class="wanted-stars" id="wanted-stars">
+          <span class="star" data-star="1">★</span>
+          <span class="star" data-star="2">★</span>
+          <span class="star" data-star="3">★</span>
+          <span class="star" data-star="4">★</span>
+          <span class="star" data-star="5">★</span>
+        </div>
+      </div>
+
+      <!-- GTA Green Cash Flow -->
+      <div class="hud-cash" id="hud-cash" title="Total Compute XP & Parameters Processed">
+        <span class="cash-symbol">$</span><span class="cash-amount" id="cash-counter">2,850,000,000</span>
+      </div>
+
+      <!-- Audio Mute/Unmute & Cheats Toggle -->
+      <div class="hud-actions">
+        <button id="sound-btn" class="hud-icon-btn" title="Toggle Sound FX">
+          <span id="sound-icon">🔊</span>
+        </button>
+        <button id="cheats-btn" class="hud-icon-btn cheats-trigger" title="Enter Cheat Codes">
+          <span>⚡ CHEATS</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- CHEAT CODES MODAL -->
+  <div id="cheats-modal" class="cheats-modal hidden">
+    <div class="cheats-content">
+      <div class="cheats-header">
+        <span class="cheats-title">LOS SANTOS DIAL-A-CHEAT</span>
+        <button id="cheats-close" class="cheats-close-btn">✕</button>
+      </div>
+      <p class="cheats-desc">Click any cheat below to execute in-game commands or type anywhere with your keyboard!</p>
+      <div class="cheats-grid">
+        <button class="cheat-card" data-cheat="FIVESTARS">
+          <span class="cheat-code">FIVESTARS</span>
+          <span class="cheat-action">Max 5-Star Wanted Level + Siren Dispatch</span>
+        </button>
+        <button class="cheat-card" data-cheat="LAWYERUP">
+          <span class="cheat-code">LAWYERUP</span>
+          <span class="cheat-action">Clear Wanted Level to Zero</span>
+        </button>
+        <button class="cheat-card" data-cheat="BIGBANG">
+          <span class="cheat-code">BIGBANG</span>
+          <span class="cheat-action">Instant WASTED Slow-Mo Screen</span>
+        </button>
+        <button class="cheat-card" data-cheat="MAKEITRAIN">
+          <span class="cheat-code">MAKEITRAIN</span>
+          <span class="cheat-action">Cash Raining Effect across Screen</span>
+        </button>
+        <button class="cheat-card" data-cheat="GODMODE">
+          <span class="cheat-code">GODMODE</span>
+          <span class="cheat-action">Unlock Golden 100% Accuracy Aura</span>
+        </button>
+        <button class="cheat-card" data-cheat="RESPECT">
+          <span class="cheat-code">RESPECT</span>
+          <span class="cheat-action">Trigger Mission Passed Fanfare</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN SCROLL CONTAINER -->
+  <main class="main-content">
+
+    <!-- HERO SECTION -->
+    <section id="hero" class="hero-section">
+      <div class="hero-backdrop"></div>
+      <div class="hero-vignette"></div>
+
+      <div class="hero-container">
+        <div class="hero-text-col">
+          <div class="hero-badge-tag">
+            <span class="pill-red">CLASSIFIED</span>
+            <span class="pill-text">SAN ANDREAS TECH PROFILE // DOSSIER #4092</span>
+          </div>
+
+          <!-- GTA V Iconic Title -->
+          <div class="gta-name-block">
+            <span class="gta-small-sup">THE PORTFOLIO OF</span>
+            <h1 class="gta-hero-title">
+              PRUTHVIRAJ
+              <span class="gta-hero-surname">GOJARE</span>
+            </h1>
+            <div class="gta-role-badge">
+              <span class="gta-v-badge">V</span>
+              <div class="role-desc-group">
+                <h2 class="target-role-title">AI / MACHINE LEARNING ENGINEER</h2>
+                <span class="role-tagline">FOUNDATION MODELS • DEEP LEARNING • AGENTIC SYSTEMS • COMPUTER VISION</span>
+              </div>
+            </div>
+          </div>
+
+          <p class="hero-bio">
+            Deploying autonomous neural networks, multi-agent frameworks, and high-throughput model architectures across distributed GPU clusters. Specializing in scaling LLMs, generative vision pipelines, and production-grade MLOps pipelines with uncompromising precision.
+          </p>
+
+          <!-- Quick Stats Pill Bar -->
+          <div class="hero-stats-row">
+            <div class="hero-stat-box">
+              <span class="stat-number">99.4%</span>
+              <span class="stat-label">BENCHMARK ACCURACY</span>
+            </div>
+            <div class="hero-stat-box">
+              <span class="stat-number">&lt; 35ms</span>
+              <span class="stat-label">INFERENCE LATENCY</span>
+            </div>
+            <div class="hero-stat-box">
+              <span class="stat-number">128x</span>
+              <span class="stat-label">H100 CLUSTER ORCHESTRATION</span>
+            </div>
+            <div class="hero-stat-box">
+              <span class="stat-number">LEVEL 99</span>
+              <span class="stat-label">ENGINEERING RANK</span>
+            </div>
+          </div>
+
+          <!-- CTA Buttons -->
+          <div class="hero-cta-group">
+            <a href="#missions" class="gta-btn gta-btn-gold hero-btn">
+              <span class="btn-icon">★</span>
+              <span>LAUNCH MISSIONS (PROJECTS)</span>
+            </a>
+            <a href="#arsenal" class="gta-btn gta-btn-dark hero-btn">
+              <span class="btn-icon">⚡</span>
+              <span>AMMU-NATION ARSENAL</span>
+            </a>
+            <a href="#contact" class="gta-btn gta-btn-outline hero-btn">
+              <span class="btn-icon">📱</span>
+              <span>CALL iFRUIT</span>
+            </a>
+            <a href="#heist-board" class="gta-btn gta-btn-text hero-btn">
+              <span>VIEW DOSSIER / CV ➔</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Hero Character Art Column -->
+        <div class="hero-art-col">
+          <div class="character-card-frame">
+            <div class="card-corner corner-tl"></div>
+            <div class="card-corner corner-tr"></div>
+            <div class="card-corner corner-bl"></div>
+            <div class="card-corner corner-br"></div>
+
+            <div class="character-image-wrapper">
+              <img src="assets/images/portrait.jpg" alt="Pruthviraj Gojare - AI Machine Learning Engineer GTA V Art" class="character-artwork" id="hero-portrait">
+              <div class="art-gradient-overlay"></div>
+              
+              <!-- Floating Hologram Stat Tag -->
+              <div class="floating-tech-hud">
+                <div class="tech-hud-header">
+                  <span class="hud-indicator active"></span>
+                  <span>NEURAL CORE v4.8 ONLINE</span>
+                </div>
+                <div class="tech-hud-body">
+                  <div class="hud-line"><span>ACTIVE GPU:</span> <strong>NVIDIA A100-SXM4</strong></div>
+                  <div class="hud-line"><span>TENSOR FLOPS:</span> <strong>312 TFLOPS (FP16)</strong></div>
+                  <div class="hud-line"><span>SPECIALTY:</span> <strong>TRANSFORMERS & AGENTS</strong></div>
+                </div>
+              </div>
+
+              <!-- Respect Pill -->
+              <div class="respect-pill">
+                <span class="respect-txt">RESPECT</span>
+                <span class="respect-plus">+</span>
+              </div>
+            </div>
+
+            <div class="character-card-footer">
+              <div class="char-id-tag">
+                <span class="char-id-title">OPERATIVE: PRUTHVIRAJ GOJARE</span>
+                <span class="char-id-sub">STATUS: AVAILABLE FOR CONTRACTS & FULL-TIME ROLES</span>
+              </div>
+              <div class="char-wanted-mini">
+                <span class="wanted-rank">THREAT RANK: APEX AI</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Scroll Indicator -->
+      <a href="#specializations" class="scroll-down-indicator" title="Scroll down to Character Specializations">
+        <span class="scroll-txt">SELECT CHARACTER SPECIALIZATION</span>
+        <div class="scroll-chevron">▼</div>
+      </a>
+    </section>
+
+
+    <!-- CHARACTER WHEEL & SPECIALIZATIONS -->
+    <section id="specializations" class="specializations-section">
+      <div class="section-header">
+        <div class="header-pre">GTA V CHARACTER SELECTOR</div>
+        <h2 class="section-title">CHOOSE YOUR <span class="text-gold">SPECIALIZATION</span></h2>
+        <p class="section-subtitle">Click each operative archetype to switch active neural abilities, primary frameworks, and combat metrics.</p>
+      </div>
+
+      <div class="character-selector-container">
+        
+        <!-- The Iconic GTA V Radial Switcher -->
+        <div class="wheel-selector-ui">
+          <div class="wheel-circle">
+            <button class="wheel-segment seg-top active" data-char="0" title="Neural Architect">
+              <div class="seg-icon">🧠</div>
+              <span class="seg-name">NEURAL ARCHITECT</span>
+              <span class="seg-tag">LLMs & FOUNDATION</span>
+            </button>
+            <button class="wheel-segment seg-right" data-char="1" title="Vision Hacker">
+              <div class="seg-icon">👁️</div>
+              <span class="seg-name">VISION HACKER</span>
+              <span class="seg-tag">CV & PERCEPTION</span>
+            </button>
+            <button class="wheel-segment seg-left" data-char="2" title="Agent Commander">
+              <div class="seg-icon">🤖</div>
+              <span class="seg-name">AGENT COMMANDER</span>
+              <span class="seg-tag">AUTONOMOUS SWARMS</span>
+            </button>
+            <div class="wheel-center-core">
+              <span class="core-logo">V</span>
+              <span class="core-sub">AI CORE</span>
+            </div>
+          </div>
+          <div class="wheel-hint">CLICK ANY ARCHETYPE TO ACTIVATE PROFILE</div>
+        </div>
+
+        <!-- Dynamic Character Profile Card -->
+        <div class="character-profile-display" id="char-profile-card">
+          <div class="char-profile-header">
+            <div class="char-avatar-badge" id="char-avatar-badge">🧠</div>
+            <div class="char-meta">
+              <span class="char-code" id="char-code">ARCHETYPE 01 // CLASSIFIED</span>
+              <h3 class="char-name" id="char-name">NEURAL ARCHITECT</h3>
+              <span class="char-alias" id="char-alias">"The Deep Learning & LLM Specialist"</span>
+            </div>
+            <div class="char-special-ability">
+              <span class="special-label">SPECIAL ABILITY</span>
+              <span class="special-value" id="char-special">ZERO-SHOT REASONING SURGE</span>
+            </div>
+          </div>
+
+          <div class="char-quote-box">
+            <span class="quote-mark">“</span>
+            <p class="char-quote" id="char-quote">
+              Why fine-tune blindly when you can architect low-rank adaptation swarms and orchestrate frontier LLMs with sub-50ms token generation?
+            </p>
+          </div>
+
+          <!-- Combat / Engineering Stats Bars -->
+          <div class="char-stats-grid">
+            <div class="stat-bar-group">
+              <div class="bar-info">
+                <span class="bar-label">TRANSFORMERS & LLMs</span>
+                <span class="bar-val" id="stat-val-1">98%</span>
+              </div>
+              <div class="bar-track">
+                <div class="bar-fill" id="bar-fill-1" style="width: 98%;"></div>
+              </div>
+            </div>
+
+            <div class="stat-bar-group">
+              <div class="bar-info">
+                <span class="bar-label">PYTORCH & CUDA ACCELERATION</span>
+                <span class="bar-val" id="stat-val-2">95%</span>
+              </div>
+              <div class="bar-track">
+                <div class="bar-fill" id="bar-fill-2" style="width: 95%;"></div>
+              </div>
+            </div>
+
+            <div class="stat-bar-group">
+              <div class="bar-info">
+                <span class="bar-label">RAG & VECTOR DATABASES</span>
+                <span class="bar-val" id="stat-val-3">94%</span>
+              </div>
+              <div class="bar-track">
+                <div class="bar-fill" id="bar-fill-3" style="width: 94%;"></div>
+              </div>
+            </div>
+
+            <div class="stat-bar-group">
+              <div class="bar-info">
+                <span class="bar-label">DISTRIBUTED CLUSTER TRAINING</span>
+                <span class="bar-val" id="stat-val-4">91%</span>
+              </div>
+              <div class="bar-track">
+                <div class="bar-fill" id="bar-fill-4" style="width: 91%;"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Core Arsenal Loadout Badges -->
+          <div class="char-loadout-tags" id="char-tags">
+            <span class="tag-pill">PyTorch</span>
+            <span class="tag-pill">Hugging Face</span>
+            <span class="tag-pill">Llama 3</span>
+            <span class="tag-pill">LoRA / QLoRA</span>
+            <span class="tag-pill">vLLM</span>
+            <span class="tag-pill">DeepSpeed</span>
+            <span class="tag-pill">LangChain</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- MISSIONS & HEISTS SHOWCASE (PROJECTS) -->
+    <section id="missions" class="missions-section">
+      <div class="section-header">
+        <div class="header-pre">LOS SANTOS HEIST CONTRACTS</div>
+        <h2 class="section-title">COMPLETED <span class="text-gold">MISSIONS</span> // MISSION PASSED</h2>
+        <p class="section-subtitle">Real-world AI and deep learning deployments executed with gold-medal efficiency and verified metrics.</p>
+      </div>
+
+      <div class="missions-grid">
+
+        <!-- MISSION 01 -->
+        <article class="mission-card" data-mission-id="1">
+          <div class="mission-card-header">
+            <div class="mission-status-stamp">
+              <span class="stamp-star">★</span>
+              <span class="stamp-text">MISSION PASSED</span>
+              <span class="stamp-star">★</span>
+            </div>
+            <div class="mission-code">CONTRACT #01 // AUTONOMOUS AGENTS</div>
+          </div>
+
+          <div class="mission-body">
+            <h3 class="mission-title">NEURONET: MULTI-AGENT SWARM CODE REVIEWER</h3>
+            <p class="mission-synopsis">
+              An enterprise-grade autonomous multi-agent framework orchestrating collaborative LLM agents to perform static code analysis, vulnerability discovery, AST-aware refactoring, and auto-generate verified PR patches.
+            </p>
+
+            <div class="mission-checklist">
+              <div class="check-item gold">
+                <span class="check-icon">✓</span>
+                <span class="check-text"><strong>Gold Objective:</strong> 42% reduction in developer triage time</span>
+              </div>
+              <div class="check-item gold">
+                <span class="check-icon">✓</span>
+                <span class="check-text"><strong>Gold Objective:</strong> Zero hallucination syntax rate via AST validation</span>
+              </div>
+              <div class="check-item gold">
+                <span class="check-icon">✓</span>
+                <span class="check-text"><strong>Sub-Objective:</strong> Scaled across 5,000+ microservice repositories</span>
+              </div>
+            </div>
+
+            <div class="mission-payout-row">
+              <div class="payout-box">
+                <span class="payout-lbl">TAKE / PAYOUT</span>
+                <span class="payout-val">+$1,450,000 XP</span>
+              </div>
+              <div class="payout-box">
+                <span class="payout-lbl">MEDAL</span>
+                <span class="medal-gold">GOLD MEDALIST 🥇</span>
+              </div>
+            </div>
+
+            <div class="mission-stack">
+              <span class="stack-badge">LangGraph</span>
+              <span class="stack-badge">Python</span>
+              <span class="stack-badge">FastAPI</span>
+              <span class="stack-badge">Claude 3.5 Sonnet</span>
+              <span class="stack-badge">Redis</span>
+              <span class="stack-badge">Docker</span>
+            </div>
+
+            <div class="mission-actions">
+              <button class="gta-btn gta-btn-gold play-sound-btn" data-sound="mission">
+                <span>SOUND THE ALARM</span>
+              </button>
+              <a href="https://github.com/pruthvirajgojare" target="_blank" rel="noopener noreferrer" class="gta-btn gta-btn-dark">
+                <span>INSPECT REPO ➔</span>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- MISSION 02 -->
+        <article class="mission-card" data-mission-id="2">
+          <div class="mission-card-header">
+            <div class="mission-status-stamp">
+              <span class="stamp-star">★</span>
+              <span class="stamp-text">MISSION PASSED</span>
+              <span class="stamp-star">★</span>
+            </div>
+            <div class="mission-code">CONTRACT #02 // COMPUTER VISION</div>
+          </div>
+
+          <div class="mission-body">
+            <h3 class="mission-title">VISION-GUARD: ULTRA LOW-LATENCY EDGE SURVEILLANCE</h3>
+            <p class="mission-synopsis">
+              Real-time multi-camera object detection and tracking pipeline optimized for embedded edge hardware. Features custom YOLOv10 backbone distillation, TensorRT acceleration, and zero-drop frame queuing.
+            </p>
+
+            <div class="mission-checklist">
+              <div class="check-item gold">
+                <span class="check-icon">✓</span>
+                <span class="check-text"><strong>Gold Objective:</strong> 120+ FPS on NVIDIA Jetson Orin</span>
+              </div>
+              <div class="check-item gold">
+                <span class="check-icon">✓</span>
+                <span class="check-text"><strong>Gold Objective:</strong> 93.8% mAP@50 on custom industrial dataset</span>
+              </div>
+              <div class="check-item gold">
+                <span class="check-icon">✓</span>
+                <span class="check-text"><strong>Sub-Objective:</strong> Sub-15ms end-to-end inference budget</span>
+              </div>
+            </div>
+
+            <div class="mission-payout-row">
+              <div class="payout-box">
+                <span class="payout-lbl">TAKE / PAYOUT</span>
+                <span class="payout-val">+$1,200,000 XP</span>
+              </div>
+              <div class="payout-box">
+                <span class="payout-lbl">MEDAL</span>
+                <span class="medal-gold">GOLD MEDALIST 🥇</span>
+              </div>
+            </div>
+
+            <div class="mission-stack">
+              <span class="stack-badge">PyTorch</span>
+              <span class="stack-badge">YOLOv10</span>
+              <span class="stack-badge">TensorRT</span>
+              <span class="stack-badge">CUDA C++</span>
+              <span class="stack-badge">DeepStream</span>
+              <span class="stack-badge">OpenCV</span>
+            </div>
+
+            <div class="mission-actions">
+              <button class="gta-btn gta-btn-gold play-sound-btn" data-sound="mission">
+                <span>SOUND THE ALARM</span>
+              </button>
+              <a href="https://github.com/pruthvirajgojare" target="_blank" rel="noopener noreferrer" class="gta-btn gta-btn-dark">
+                <span>INSPECT REPO ➔</span>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- MISSION 03 -->
+        <article class="mission-card" data-mission-id="3">
+          <div class="mission-card-header">
+            <div class="mission-status-stamp">
+              <span class="stamp-star">★</span>
+              <span class="stamp-text">MISSION PASSED</span>
+              <span class="stamp-star">★</span>
+            </div>
+            <div class="mission-code">CONTRACT #03 // RAG & KNOWLEDGE SYSTEMS</div>
+          </div>
+
+          <div class="mission-body">
+            <h3 class="mission-title">APEX-RAG: HYBRID DENSE-SPARSE RETRIEVAL ENGINE</h3>
+            <p class="mission-synopsis">
+              Production RAG architecture combining semantic dense embeddings (BGE-M3) with lexical BM25 reranking (Cohere Rerank) and reciprocal rank fusion over 10M+ technical documentation corpus.
+            </p>
+
+            <div class="mission-checklist">
+              <div class="check-item gold">
+                <span class="check-icon">✓</span>
+                <span class="check-text"><strong>Gold Objective:</strong> 96.2% contextual recall on RAGAS benchmarks</span>
+              </div>
+              <div class="check-item gold">
+                <span class="check-icon">✓</span>
+                <span class="check-text"><strong>Gold Objective:</strong> Sub-80ms p99 vector query latency</span>
+              </div>
+              <div class="check-item gold">
+                <span class="check-icon">✓</span>
+                <span class="check-text"><strong>Sub-Objective:</strong> Dynamic metadata graph filtering</span>
+              </div>
+            </div>
+
+            <div class="mission-payout-row">
+              <div class="payout-box">
+                <span class="payout-lbl">TAKE / PAYOUT</span>
+                <span class="payout-val">+$1,600,000 XP</span>
+              </div>
+              <div class="payout-box">
+                <span class="payout-lbl">MEDAL</span>
+                <span class="medal-gold">GOLD MEDALIST 🥇</span>
+              </div>
+            </div>
+
+            <div class="mission-stack">
+              <span class="stack-badge">Milvus Vector DB</span>
+              <span class="stack-badge">LlamaIndex</span>
+              <span class="stack-badge">PyTorch</span>
+              <span class="stack-badge">vLLM</span>
+              <span class="stack-badge">Kubernetes</span>
+              <span class="stack-badge">PostgreSQL</span>
+            </div>
+
+            <div class="mission-actions">
+              <button class="gta-btn gta-btn-gold play-sound-btn" data-sound="mission">
+                <span>SOUND THE ALARM</span>
+              </button>
+              <a href="https://github.com/pruthvirajgojare" target="_blank" rel="noopener noreferrer" class="gta-btn gta-btn-dark">
+                <span>INSPECT REPO ➔</span>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- MISSION 04 -->
+        <article class="mission-card" data-mission-id="4">
+          <div class="mission-card-header">
+            <div class="mission-status-stamp">
+              <span class="stamp-star">★</span>
+              <span class="stamp-text">MISSION PASSED</span>
+              <span class="stamp-star">★</span>
+            </div>
+            <div class="mission-code">CONTRACT #04 // GENERATIVE AI & DIFFUSION</div>
+          </div>
+
+          <div class="mission-body">
+            <h3 class="mission-title">SYNTHESIS-AI: MULTIMODAL LATENT DIFFUSION STUDIO</h3>
+            <p class="mission-synopsis">
+              End-to-end generative pipeline generating high-resolution synthetic image and 3D asset training data for domain adaptation. Incorporates ControlNet conditioning, custom LoRA weight blending, and DDIM samplers.
+            </p>
+
+            <div class="mission-checklist">
+              <div class="check-item gold">
+                <span class="check-icon">✓</span>
+                <span class="check-text"><strong>Gold Objective:</strong> 3.5x reduction in rare-class data collection costs</span>
+              </div>
+              <div class="check-item gold">
+                <span class="check-icon">✓</span>
+                <span class="check-text"><strong>Gold Objective:</strong> 18.2 FID score on synthetic validation split</span>
+              </div>
+              <div class="check-item gold">
+                <span class="check-icon">✓</span>
+                <span class="check-text"><strong>Sub-Objective:</strong> FlashAttention-2 integrated inference speedup</span>
+              </div>
+            </div>
+
+            <div class="mission-payout-row">
+              <div class="payout-box">
+                <span class="payout-lbl">TAKE / PAYOUT</span>
+                <span class="payout-val">+$1,350,000 XP</span>
+              </div>
+              <div class="payout-box">
+                <span class="payout-lbl">MEDAL</span>
+                <span class="medal-gold">GOLD MEDALIST 🥇</span>
+              </div>
+            </div>
+
+            <div class="mission-stack">
+              <span class="stack-badge">Diffusers</span>
+              <span class="stack-badge">PyTorch</span>
+              <span class="stack-badge">ControlNet</span>
+              <span class="stack-badge">LoRA</span>
+              <span class="stack-badge">Triton Server</span>
+              <span class="stack-badge">Gradio</span>
+            </div>
+
+            <div class="mission-actions">
+              <button class="gta-btn gta-btn-gold play-sound-btn" data-sound="mission">
+                <span>SOUND THE ALARM</span>
+              </button>
+              <a href="https://github.com/pruthvirajgojare" target="_blank" rel="noopener noreferrer" class="gta-btn gta-btn-dark">
+                <span>INSPECT REPO ➔</span>
+              </a>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+
+    <!-- AMMU-NATION SKILL LOADOUT -->
+    <section id="arsenal" class="arsenal-section">
+      <div class="section-header">
+        <div class="header-pre">SAN ANDREAS DEFENSE & FIREARMS</div>
+        <h2 class="section-title">AMMU-NATION <span class="text-gold">TECH ARSENAL</span></h2>
+        <p class="section-subtitle">Lock and load your ML infrastructure. Select any weapon caliber to inspect firepower and performance statistics.</p>
+      </div>
+
+      <div class="arsenal-container">
+        
+        <!-- Weapon Categories Filter -->
+        <div class="arsenal-tabs" id="arsenal-tabs">
+          <button class="arsenal-tab-btn active" data-cat="all">ALL WEAPONS</button>
+          <button class="arsenal-tab-btn" data-cat="heavy">HEAVY CALIBER (DEEP LEARNING)</button>
+          <button class="arsenal-tab-btn" data-cat="tactical">TACTICAL RIFLES (LANGUAGES)</button>
+          <button class="arsenal-tab-btn" data-cat="special">SPECIAL ORDNANCE (AGENTS & LLM)</button>
+          <button class="arsenal-tab-btn" data-cat="armor">ARMOR & GEAR (MLOPS & CLOUD)</button>
+        </div>
+
+        <!-- Weapon Display Grid -->
+        <div class="weapons-grid">
+
+          <!-- Weapon 1 -->
+          <div class="weapon-card" data-cat="heavy">
+            <div class="weapon-top">
+              <span class="weapon-type">HEAVY ARTILLERY</span>
+              <span class="weapon-price">UNLOCKED ★</span>
+            </div>
+            <div class="weapon-art-box">
+              <div class="weapon-symbol">⚡</div>
+              <h4 class="weapon-name">PYTORCH & CUDA</h4>
+            </div>
+            <div class="weapon-specs">
+              <div class="spec-row"><span>FIRE RATE (COMPUTE)</span><div class="spec-bar"><div class="spec-fill" style="width: 98%"></div></div></div>
+              <div class="spec-row"><span>DAMAGE (PERFORMANCE)</span><div class="spec-bar"><div class="spec-fill" style="width: 96%"></div></div></div>
+              <div class="spec-row"><span>ACCURACY (NUMERICAL)</span><div class="spec-bar"><div class="spec-fill" style="width: 99%"></div></div></div>
+            </div>
+            <p class="weapon-desc">Primary deep learning engine. Distributed Data Parallel (DDP), custom CUDA kernel execution, mixed precision training.</p>
+          </div>
+
+          <!-- Weapon 2 -->
+          <div class="weapon-card" data-cat="heavy">
+            <div class="weapon-top">
+              <span class="weapon-type">MINIGUN CALIBER</span>
+              <span class="weapon-price">UNLOCKED ★</span>
+            </div>
+            <div class="weapon-art-box">
+              <div class="weapon-symbol">🤗</div>
+              <h4 class="weapon-name">TRANSFORMERS & vLLM</h4>
+            </div>
+            <div class="weapon-specs">
+              <div class="spec-row"><span>FIRE RATE (TOKENS/S)</span><div class="spec-bar"><div class="spec-fill" style="width: 97%"></div></div></div>
+              <div class="spec-row"><span>DAMAGE (CONTEXT)</span><div class="spec-bar"><div class="spec-fill" style="width: 95%"></div></div></div>
+              <div class="spec-row"><span>ACCURACY (PERPLEXITY)</span><div class="spec-bar"><div class="spec-fill" style="width: 94%"></div></div></div>
+            </div>
+            <p class="weapon-desc">High-throughput token generation with PagedAttention, KV-cache quantization, and continuous batching.</p>
+          </div>
+
+          <!-- Weapon 3 -->
+          <div class="weapon-card" data-cat="tactical">
+            <div class="weapon-top">
+              <span class="weapon-type">SNIPER RIFLE</span>
+              <span class="weapon-price">UNLOCKED ★</span>
+            </div>
+            <div class="weapon-art-box">
+              <div class="weapon-symbol">🐍</div>
+              <h4 class="weapon-name">PYTHON (NUMPY/PANDAS)</h4>
+            </div>
+            <div class="weapon-specs">
+              <div class="spec-row"><span>FIRE RATE (DEV SPEED)</span><div class="spec-bar"><div class="spec-fill" style="width: 99%"></div></div></div>
+              <div class="spec-row"><span>DAMAGE (VERSATILITY)</span><div class="spec-bar"><div class="spec-fill" style="width: 98%"></div></div></div>
+              <div class="spec-row"><span>ACCURACY (PRECISION)</span><div class="spec-bar"><div class="spec-fill" style="width: 95%"></div></div></div>
+            </div>
+            <p class="weapon-desc">Master-grade asynchronous Python, vectorization, high-performance Cython bindings, and scientific computing.</p>
+          </div>
+
+          <!-- Weapon 4 -->
+          <div class="weapon-card" data-cat="tactical">
+            <div class="weapon-top">
+              <span class="weapon-type">ARMOR PIERCING</span>
+              <span class="weapon-price">UNLOCKED ★</span>
+            </div>
+            <div class="weapon-art-box">
+              <div class="weapon-symbol">⚙️</div>
+              <h4 class="weapon-name">C++ & TENSORRT</h4>
+            </div>
+            <div class="weapon-specs">
+              <div class="spec-row"><span>FIRE RATE (INFERENCE)</span><div class="spec-bar"><div class="spec-fill" style="width: 99%"></div></div></div>
+              <div class="spec-row"><span>DAMAGE (LATENCY DROP)</span><div class="spec-bar"><div class="spec-fill" style="width: 97%"></div></div></div>
+              <div class="spec-row"><span>ACCURACY (QUANTIZATION)</span><div class="spec-bar"><div class="spec-fill" style="width: 92%"></div></div></div>
+            </div>
+            <p class="weapon-desc">Ultra-fast edge inference pipelines, memory profiling, layer fusion, and INT8 calibration.</p>
+          </div>
+
+          <!-- Weapon 5 -->
+          <div class="weapon-card" data-cat="special">
+            <div class="weapon-top">
+              <span class="weapon-type">TACTICAL SWARM</span>
+              <span class="weapon-price">UNLOCKED ★</span>
+            </div>
+            <div class="weapon-art-box">
+              <div class="weapon-symbol">🤖</div>
+              <h4 class="weapon-name">LANGGRAPH & AGENTS</h4>
+            </div>
+            <div class="weapon-specs">
+              <div class="spec-row"><span>FIRE RATE (COORDINATION)</span><div class="spec-bar"><div class="spec-fill" style="width: 96%"></div></div></div>
+              <div class="spec-row"><span>DAMAGE (TASK AUTONOMY)</span><div class="spec-bar"><div class="spec-fill" style="width: 94%"></div></div></div>
+              <div class="spec-row"><span>ACCURACY (REASONING)</span><div class="spec-bar"><div class="spec-fill" style="width: 93%"></div></div></div>
+            </div>
+            <p class="weapon-desc">Cyclic graphs, tool use, memory persistence, human-in-the-loop validation, and swarm decision logic.</p>
+          </div>
+
+          <!-- Weapon 6 -->
+          <div class="weapon-card" data-cat="special">
+            <div class="weapon-top">
+              <span class="weapon-type">SONAR RADAR</span>
+              <span class="weapon-price">UNLOCKED ★</span>
+            </div>
+            <div class="weapon-art-box">
+              <div class="weapon-symbol">🎯</div>
+              <h4 class="weapon-name">MILVUS & VECTOR DB</h4>
+            </div>
+            <div class="weapon-specs">
+              <div class="spec-row"><span>FIRE RATE (RETRIEVAL)</span><div class="spec-bar"><div class="spec-fill" style="width: 95%"></div></div></div>
+              <div class="spec-row"><span>DAMAGE (INDEX SCALE)</span><div class="spec-bar"><div class="spec-fill" style="width: 96%"></div></div></div>
+              <div class="spec-row"><span>ACCURACY (RECALL)</span><div class="spec-bar"><div class="spec-fill" style="width: 97%"></div></div></div>
+            </div>
+            <p class="weapon-desc">HNSW & IVF-FLAT indexes, hybrid dense-sparse search, multi-tenant partitioning, and sub-10ms ANN lookup.</p>
+          </div>
+
+          <!-- Weapon 7 -->
+          <div class="weapon-card" data-cat="armor">
+            <div class="weapon-top">
+              <span class="weapon-type">BODY ARMOR</span>
+              <span class="weapon-price">UNLOCKED ★</span>
+            </div>
+            <div class="weapon-art-box">
+              <div class="weapon-symbol">🐳</div>
+              <h4 class="weapon-name">DOCKER & KUBERNETES</h4>
+            </div>
+            <div class="weapon-specs">
+              <div class="spec-row"><span>ARMOR (ISOLATION)</span><div class="spec-bar"><div class="spec-fill" style="width: 98%"></div></div></div>
+              <div class="spec-row"><span>MOBILITY (ORCHESTRATION)</span><div class="spec-bar"><div class="spec-fill" style="width: 93%"></div></div></div>
+              <div class="spec-row"><span>ENDURANCE (UPTIME)</span><div class="spec-bar"><div class="spec-fill" style="width: 99%"></div></div></div>
+            </div>
+            <p class="weapon-desc">Containerized GPU workloads, autoscaling clusters with KEDA, persistent storage mounts, and CI/CD automation.</p>
+          </div>
+
+          <!-- Weapon 8 -->
+          <div class="weapon-card" data-cat="armor">
+            <div class="weapon-top">
+              <span class="weapon-type">SUPPLY CONVOY</span>
+              <span class="weapon-price">UNLOCKED ★</span>
+            </div>
+            <div class="weapon-art-box">
+              <div class="weapon-symbol">☁️</div>
+              <h4 class="weapon-name">AWS / GCP / MLFLOW</h4>
+            </div>
+            <div class="weapon-specs">
+              <div class="spec-row"><span>RANGE (CLOUD REACH)</span><div class="spec-bar"><div class="spec-fill" style="width: 95%"></div></div></div>
+              <div class="spec-row"><span>PAYLOAD (EXPERIMENT LOG)</span><div class="spec-bar"><div class="spec-fill" style="width: 94%"></div></div></div>
+              <div class="spec-row"><span>RELIABILITY (BACKUP)</span><div class="spec-bar"><div class="spec-fill" style="width: 97%"></div></div></div>
+            </div>
+            <p class="weapon-desc">SageMaker endpoints, Vertex AI pipelines, MLflow model registries, S3 data lakes, and Ray cluster management.</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- SAFEHOUSE & HEIST PLANNING ROOM (EXPERIENCE & TRACK RECORD) -->
+    <section id="heist-board" class="safehouse-section">
+      <div class="section-header">
+        <div class="header-pre">LESTER'S SECURE SAFE-HOUSE</div>
+        <h2 class="section-title">THE HEIST <span class="text-gold">PLANNING BOARD</span></h2>
+        <p class="section-subtitle">Tactical progression, professional contracts, and engineering milestones pinned to the corkboard.</p>
+      </div>
+
+      <div class="safehouse-container">
+        
+        <!-- Blueprint & Tactical Map Visual -->
+        <div class="heist-board-visual">
+          <img src="assets/images/heist-board.jpg" alt="GTA V Heist Planning Room - AI Neural Network Architecture" class="board-image">
+          <div class="board-crosshair"></div>
+          <div class="board-overlay-label">
+            <span class="blink-dot"></span>
+            <span>SAN ANDREAS OPERATION: "PROJECT ORION-AI" // STATUS: IN PROGRESS</span>
+          </div>
+        </div>
+
+        <!-- Tactical Corkboard Notes / Experience Timeline -->
+        <div class="corkboard-notes-list">
+
+          <!-- Note 1 -->
+          <div class="tactical-note note-yellow">
+            <div class="pin"></div>
+            <div class="note-header">
+              <span class="note-date">2024 - PRESENT // ACTIVE OPERATION</span>
+              <span class="note-rank">SENIOR LEAD</span>
+            </div>
+            <h4 class="note-title">AI & MACHINE LEARNING ENGINEER</h4>
+            <div class="note-company">AUTONOMOUS SYSTEMS LAB // SAN ANDREAS HQ</div>
+            <p class="note-content">
+              Leading the development of large foundation model fine-tuning workflows and agentic tool-calling pipelines. Architected distributed multi-node inference serving reducing p99 latency by 45%. Orchestrating GPU cluster scheduling and automated RAG evaluation benchmarks.
+            </p>
+            <div class="note-stamps">
+              <span class="stamp-verified">APPROVED ✓</span>
+              <span class="stamp-xp">+450K XP</span>
+            </div>
+          </div>
+
+          <!-- Note 2 -->
+          <div class="tactical-note note-white">
+            <div class="pin"></div>
+            <div class="note-header">
+              <span class="note-date">2022 - 2024 // SUCCESSFUL HEIST</span>
+              <span class="note-rank">CORE OPERATIVE</span>
+            </div>
+            <h4 class="note-title">MACHINE LEARNING SPECIALIST</h4>
+            <div class="note-company">ENTERPRISE INTELLIGENCE CORP</div>
+            <p class="note-content">
+              Built end-to-end computer vision recognition models and tabular predictive algorithms. Deployed real-time defect classification serving 10M+ daily API requests with 99.2% uptime SLA. Built CI/CD automated model retraining pipelines via MLflow and Docker.
+            </p>
+            <div class="note-stamps">
+              <span class="stamp-verified">COMPLETED ✓</span>
+              <span class="stamp-xp">+320K XP</span>
+            </div>
+          </div>
+
+          <!-- Note 3 -->
+          <div class="tactical-note note-blueprint">
+            <div class="pin"></div>
+            <div class="note-header">
+              <span class="note-date">2020 - 2022 // RECON & TRAINING</span>
+              <span class="note-rank">ACADEMY CADET</span>
+            </div>
+            <h4 class="note-title">AI RESEARCH & ACADEMIC DOSSIER</h4>
+            <div class="note-company">INSTITUTE OF TECHNOLOGY // COMPUTER SCIENCE & AI</div>
+            <p class="note-content">
+              Focused on Deep Learning, Statistical Machine Learning, Distributed Algorithms, and Linear Algebra. Published experimental benchmarks on few-shot transfer learning and autonomous agent coordination.
+            </p>
+            <div class="note-stamps">
+              <span class="stamp-verified">HONORS GRADUATE 🎓</span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- iFRUIT SMARTPHONE CONTACT MODULE -->
+    <section id="contact" class="contact-section">
+      <div class="section-header">
+        <div class="header-pre">SECURE SATELLITE COMMUNICATIONS</div>
+        <h2 class="section-title">THE <span class="text-gold">iFRUIT</span> SMARTPHONE</h2>
+        <p class="section-subtitle">Transmit your heist proposal, recruit for an AI role, or initiate secure audio paging.</p>
+      </div>
+
+      <div class="contact-container">
+
+        <!-- Authentic GTA V iFruit Phone Mockup -->
+        <div class="ifruit-phone">
+          <div class="phone-speaker"></div>
+          <div class="phone-camera-lens"></div>
+
+          <div class="phone-screen">
+            <!-- Status Bar -->
+            <div class="phone-status-bar">
+              <span class="phone-provider">LOS SANTOS 5G</span>
+              <span class="phone-time" id="phone-clock">04:42 PM</span>
+              <div class="phone-battery">
+                <span class="battery-pct">100%</span>
+                <span class="battery-icon">🔋</span>
+              </div>
+            </div>
+
+            <!-- Phone Header -->
+            <div class="phone-header-banner">
+              <div class="ifruit-logo">🍏 iFruit</div>
+              <div class="phone-contact-name">PRUTHVIRAJ GOJARE</div>
+              <div class="phone-contact-role">AI / ML SPECIALIST</div>
+            </div>
+
+            <!-- Interactive App Navigation -->
+            <div class="phone-nav-tabs">
+              <button class="phone-tab-btn active" data-tab="message">MESSAGE</button>
+              <button class="phone-tab-btn" data-tab="contacts">CONTACTS</button>
+              <button class="phone-tab-btn" data-tab="apps">APPS</button>
+            </div>
+
+            <!-- Phone Tab Content: Message Form -->
+            <div class="phone-tab-pane active" id="tab-message">
+              <form class="ifruit-msg-form" id="contact-form">
+                <div class="msg-input-group">
+                  <label for="caller-name">OPERATIVE NAME</label>
+                  <input type="text" id="caller-name" required placeholder="e.g. Michael / Recruiter" class="gta-input">
+                </div>
+                <div class="msg-input-group">
+                  <label for="caller-email">SECURE FREQUENCY (EMAIL)</label>
+                  <input type="email" id="caller-email" required placeholder="recruiter@company.com" class="gta-input">
+                </div>
+                <div class="msg-input-group">
+                  <label for="caller-msg">HEIST BRIEF / CONTRACT</label>
+                  <textarea id="caller-msg" rows="3" required placeholder="Provide role details, compensation, or project scope..." class="gta-textarea"></textarea>
+                </div>
+                <button type="submit" class="phone-send-btn" id="phone-submit-btn">
+                  <span>TRANSMIT PAGER ➔</span>
+                </button>
+                <div class="msg-status-toast" id="msg-status"></div>
+              </form>
+            </div>
+
+            <!-- Phone Tab Content: Quick Contacts -->
+            <div class="phone-tab-pane" id="tab-contacts">
+              <div class="contacts-list">
+                <a href="mailto:pruthvirajgojare@gmail.com" class="contact-item">
+                  <span class="item-icon">✉️</span>
+                  <div class="item-info">
+                    <span class="item-title">DIRECT EMAIL</span>
+                    <span class="item-sub">pruthvirajgojare@gmail.com</span>
+                  </div>
+                  <span class="item-action">SEND</span>
+                </a>
+                <a href="https://linkedin.com/in/pruthvirajgojare" target="_blank" rel="noopener noreferrer" class="contact-item">
+                  <span class="item-icon">💼</span>
+                  <div class="item-info">
+                    <span class="item-title">LINKEDIN NETWORK</span>
+                    <span class="item-sub">Connect Professional Dossier</span>
+                  </div>
+                  <span class="item-action">VISIT</span>
+                </a>
+                <a href="https://github.com/pruthvirajgojare" target="_blank" rel="noopener noreferrer" class="contact-item">
+                  <span class="item-icon">🐙</span>
+                  <div class="item-info">
+                    <span class="item-title">GITHUB CODEBASE</span>
+                    <span class="item-sub">@pruthvirajgojare</span>
+                  </div>
+                  <span class="item-action">REPOS</span>
+                </a>
+                <div class="contact-item">
+                  <span class="item-icon">📍</span>
+                  <div class="item-info">
+                    <span class="item-title">BASE OF OPERATIONS</span>
+                    <span class="item-sub">Los Santos / Available Globally (Remote)</span>
+                  </div>
+                  <span class="item-action">MAP</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Phone Tab Content: Apps Grid -->
+            <div class="phone-tab-pane" id="tab-apps">
+              <div class="apps-grid">
+                <a href="https://github.com/pruthvirajgojare" target="_blank" rel="noopener noreferrer" class="app-icon-item">
+                  <div class="app-icon github-app">🐙</div>
+                  <span class="app-name">GitHub</span>
+                </a>
+                <a href="https://linkedin.com/in/pruthvirajgojare" target="_blank" rel="noopener noreferrer" class="app-icon-item">
+                  <div class="app-icon linkedin-app">💼</div>
+                  <span class="app-name">LinkedIn</span>
+                </a>
+                <a href="mailto:pruthvirajgojare@gmail.com" class="app-icon-item">
+                  <div class="app-icon mail-app">✉️</div>
+                  <span class="app-name">Mail</span>
+                </a>
+                <button class="app-icon-item" id="app-easter-egg">
+                  <div class="app-icon siren-app">🚨</div>
+                  <span class="app-name">911 Dispatch</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Phone Home Button -->
+            <div class="phone-home-indicator"></div>
+          </div>
+        </div>
+
+        <!-- Contact Pitch Column -->
+        <div class="contact-pitch-col">
+          <div class="pitch-badge">
+            <span class="badge-dot"></span>
+            <span>STATUS: ACTIVELY SEEKING AI / MACHINE LEARNING ENGINEER ROLES</span>
+          </div>
+          
+          <h3 class="pitch-title">READY TO SCORE BIG ON YOUR NEXT AI INITIATIVE?</h3>
+          <p class="pitch-text">
+            Whether you are building the next generation of foundational LLM agents, scaling distributed training pipelines across H100 clusters, or deploying computer vision systems at microsecond speeds, I bring relentless engineering rigor, modern AI architectures, and high-impact execution.
+          </p>
+
+          <div class="contract-perks-list">
+            <div class="perk-item">
+              <span class="perk-bullet">★</span>
+              <span><strong>Full-Stack Machine Learning:</strong> Research to production deployment.</span>
+            </div>
+            <div class="perk-item">
+              <span class="perk-bullet">★</span>
+              <span><strong>Autonomous Systems:</strong> Multi-agent orchestration with verified tool calling.</span>
+            </div>
+            <div class="perk-item">
+              <span class="perk-bullet">★</span>
+              <span><strong>High Performance:</strong> CUDA, TensorRT, and distributed data-parallel scaling.</span>
+            </div>
+            <div class="perk-item">
+              <span class="perk-bullet">★</span>
+              <span><strong>Worldwide Availability:</strong> Open to Remote, Hybrid, and Relocation.</span>
+            </div>
+          </div>
+
+          <div class="direct-channels-box">
+            <div class="direct-channel-title">DIRECT CHANNELS:</div>
+            <div class="direct-links-row">
+              <a href="mailto:pruthvirajgojare@gmail.com" class="channel-link">
+                <span class="channel-icon">✉️</span> pruthvirajgojare@gmail.com
+              </a>
+              <a href="https://linkedin.com/in/pruthvirajgojare" target="_blank" rel="noopener noreferrer" class="channel-link">
+                <span class="channel-icon">💼</span> linkedin.com/in/pruthvirajgojare
+              </a>
+              <a href="https://github.com/pruthvirajgojare" target="_blank" rel="noopener noreferrer" class="channel-link">
+                <span class="channel-icon">🐙</span> github.com/pruthvirajgojare
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+
+  <!-- GTA V RADAR MINI-MAP (BOTTOM-LEFT) -->
+  <aside id="gta-radar" class="gta-radar" title="GTA V GPS Mini-Map">
+    <div class="radar-circle">
+      <div class="radar-map-texture"></div>
+      <div class="radar-scan-line"></div>
+      
+      <!-- Blips for sections -->
+      <a href="#hero" class="radar-blip blip-hero active" title="01 Origin (Hero)"></a>
+      <a href="#specializations" class="radar-blip blip-spec" title="02 Character Switch"></a>
+      <a href="#missions" class="radar-blip blip-missions" title="03 Missions / Heists"></a>
+      <a href="#arsenal" class="radar-blip blip-arsenal" title="04 Ammu-Nation"></a>
+      <a href="#heist-board" class="radar-blip blip-safehouse" title="05 Safehouse"></a>
+      <a href="#contact" class="radar-blip blip-contact" title="06 iFruit Phone"></a>
+
+      <!-- Player Triangle Pointer -->
+      <div class="radar-player-arrow" id="radar-player"></div>
+    </div>
+    
+    <div class="radar-bars">
+      <div class="radar-bar-health" title="Health: 100%"></div>
+      <div class="radar-bar-armor" title="Armor: 100%"></div>
+      <div class="radar-bar-special" title="AI Special Ability: Ready"></div>
+    </div>
+    <div class="radar-location-caption" id="radar-caption">SAN ANDREAS // VINEWOOD</div>
+  </aside>
+
+
+  <!-- GTA V "WASTED" OVERLAY -->
+  <div id="wasted-overlay" class="wasted-overlay hidden">
+    <div class="wasted-banner">
+      <h1 class="wasted-text">WASTED</h1>
+      <p class="wasted-sub">RESTARTING MISSION AT NEAREST ML CHECKPOINT...</p>
+      <button id="wasted-respawn-btn" class="gta-btn gta-btn-gold">RESPAWN</button>
+    </div>
+  </div>
+
+
+  <!-- GTA V "MISSION PASSED" POPUP BANNER -->
+  <div id="mission-passed-banner" class="mission-passed-banner hidden">
+    <div class="banner-inner">
+      <div class="banner-stars">★★★★★</div>
+      <h2 class="banner-title">MISSION PASSED!</h2>
+      <div class="banner-respect">RESPECT +</div>
+      <div class="banner-payout">+$1,500,000 XP ADDED TO BANK</div>
+    </div>
+  </div>
+
+
+  <!-- FOOTER -->
+  <footer class="gta-footer">
+    <div class="footer-top">
+      <div class="footer-logo">
+        <span class="logo-v">V</span>
+        <span class="logo-name">PRUTHVIRAJ GOJARE</span>
+      </div>
+      <div class="footer-copy">
+        LOS SANTOS AI SPECIAL DIVISION // BUILT WITH HTML, VANILLA CSS & JAVASCRIPT
+      </div>
+      <div class="footer-links">
+        <a href="#hero">TOP ▲</a>
+        <a href="#missions">MISSIONS</a>
+        <a href="#arsenal">SKILLS</a>
+        <a href="#contact">CONTACT</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 PRUTHVIRAJ GOJARE. ALL RIGHTS RESERVED. GRAND THEFT AUTO V THEMED TRIBUTE PORTFOLIO.</span>
+      <span>SAN ANDREAS DEPARTMENT OF MACHINE LEARNING</span>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
